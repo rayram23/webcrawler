@@ -4,8 +4,9 @@ import java.net.URI;
 
 public class UriParser {
 
-	public boolean isUrlOnDomain(String parentDomain, String check){
-		return false;
+	public boolean isUrlOnDomain( URI check,String parentDomain){
+		String host = this.extractDomain(check);
+		return parentDomain.toLowerCase().equals(host.toLowerCase());
 	}
 	public String extractDomain(URI uri){
 		  String domain = uri.getHost().toLowerCase();
@@ -13,7 +14,6 @@ public class UriParser {
 		  if(domain.startsWith("www.")){
 			   domain =  domain.substring(4);
 		   }
-		   //at this point 
-		  return null;
+		 return domain;
 	}
 }

@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import com.rayram23.webcrawler.domain.Page;
 import com.rayram23.webcrawler.fetch.PageFetchListener;
+import com.rayram23.webcrawler.parser.UriParser;
 import com.rayram23.webcrawler.sitemap.SiteMap;
 
 
@@ -24,9 +25,10 @@ public static final int MIN_FETCH_TIME = 1000;
 	private Logger logger = Logger.getLogger("WebCrawler");
 	private Queue<Page> pageQueue;
 	private ExecutorService executor;
+	private UriParser uriParser;
 	
 
-	public WebCrawler(URI uri, Boolean allowSubdomains, int fetchTime, Boolean obeyRobots, SiteMap siteMap, Queue<Page> queue, ExecutorService executor){
+	public WebCrawler(URI uri, Boolean allowSubdomains, int fetchTime, Boolean obeyRobots, SiteMap siteMap, Queue<Page> queue, ExecutorService executor,UriParser uriParser){
 		if(fetchTime < WebCrawler.MIN_FETCH_TIME){
 			throw new IllegalArgumentException("fetchTime must be >= WebCrawler.MIN_FETCH_TIME");
 		}
@@ -36,27 +38,17 @@ public static final int MIN_FETCH_TIME = 1000;
 		this.pageQueue = queue;
 		this.executor = executor;
 		this.siteMap = siteMap;
+		this.uriParser = uriParser;
 	}
-
-
-	public void pageFetched(Page page, Set<String> links) {
-		// TODO Auto-generated method stub
-		
+	public void pageFetched(Page page, Set<String> links) {	
 		//add the page to the graph
 		this.siteMap.addPage(page.getParent(), page);
 		//for each link
 		for(String link : links){
-			this.pageQueue.add(new Page(page,link));
+			//if the page is on the original domain add it to the queue
+			if(this.uriParser.isUrlOnDomain(this.url, link)){
+				this.pageQueue.add(new Page(page,link));
+			}
 		}
-//			//if link is on domain && the link is not a subdomain && 
-				
-			//create a page from the current page
-			//add it to the queue
-		
-		
-		
-		
-		
-		
 	}
 }

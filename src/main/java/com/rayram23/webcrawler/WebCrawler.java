@@ -40,7 +40,7 @@ public static final int MIN_FETCH_TIME = 1000;
 		this.siteMap = siteMap;
 		this.uriParser = uriParser;
 	}
-	public void pageFetched(Page page, Set<String> links) {	
+	public void pageFetched(Page page, Set<String> links, Set<String> images, Set<String> statics) {	
 		//add the page to the graph
 		this.siteMap.addPage(page.getParent(), page);
 		//for each link

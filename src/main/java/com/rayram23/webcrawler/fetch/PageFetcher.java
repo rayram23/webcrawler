@@ -15,8 +15,9 @@ public class PageFetcher implements Runnable {
 
 	private Page page;
 	private Set<PageFetchListener> listeners;
-	public PageFetcher(Page page){
+	public PageFetcher(Page page, Set<PageFetchListener> listeners){
 		this.page = page;
+		this.listeners = listeners;
 	}
 	public void run() {
 		Document doc = null;
@@ -29,23 +30,34 @@ public class PageFetcher implements Runnable {
 			return;
 		}
 		 Elements links = doc.select("a[href]");
-	     Elements media = doc.select("[src]");
-	     Elements imports = doc.select("link[href]");
+	     Elements images = doc.select("img[src]");
+	     Elements statics = doc.select("link[href]");
 		
+	     Set<String> fqdnLinks = this.getAllAbsoluteUrlForAttribute(links, "href");
+	     Set<String> fqdnImages = this.getAllAbsoluteUrlForAttribute(images, "href");
+	     Set<String> fqdnStatics = this.getAllAbsoluteUrlForAttribute(statics, "href");
 	     
+	     for(PageFetchListener listener : this.listeners){
+	    	 listener.pageFetched(page, fqdnLinks, fqdnImages, fqdnStatics);
+	     }
 	     
 
 	}
-	protected Set<String> getAllImages(Elements media){
+	
+	protected Set<String> getAllAbsoluteUrlForAttribute(Elements elements, String attribute){
 		Set<String> urls = new HashSet<String>();
-		for (Element src : media) {
-            if (!src.tagName().equals("img")){
-            	continue;
-            }
-            String fqdUrl = src.attr("abs:src");
-            urls.add(fqdUrl);
-        }
+		if(elements == null || attribute == null){
+			return urls;
+		}
+		for(Element link : elements){
+			String absUrl = link.absUrl(attribute);
+			if(absUrl == null || absUrl.isEmpty()){
+				continue;
+			}
+			urls.add(absUrl);
+		}
 		return urls;
 	}
+	
 
 }

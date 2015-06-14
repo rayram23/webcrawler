@@ -6,6 +6,7 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Queue;
 import java.util.Random;
@@ -100,7 +101,7 @@ public class WebCrawlerTest {
 		Mockito.when(fakePage.getParent()).thenReturn(parentPage);
 		
 		WebCrawler testClass = new WebCrawler(mockedURL,Boolean.TRUE, fetchTime,Boolean.TRUE,mockedSiteMap,fakeQueue,mockExecutorService,parser);
-		testClass.pageFetched(fakePage, links);
+		testClass.pageFetched(fakePage, links,Collections.EMPTY_SET,Collections.EMPTY_SET);
 		
 		
 		Mockito.verify(mockedSiteMap, Mockito.times(1)).addPage(parentPage, fakePage);
@@ -129,7 +130,7 @@ public class WebCrawlerTest {
 		Mockito.when(fakePage.getParent()).thenReturn(parentPage);
 		Mockito.when(parser.isUrlOnDomain(Mockito.any(URI.class), Mockito.anyString())).thenReturn(true);
 		WebCrawler testClass = new WebCrawler(mockedURL,Boolean.TRUE, fetchTime,Boolean.TRUE,mockedSiteMap,fakeQueue,mockExecutorService,parser);
-		testClass.pageFetched(fakePage, links);
+		testClass.pageFetched(fakePage, links,Collections.EMPTY_SET,Collections.EMPTY_SET);
 		
 		Mockito.verify(fakeQueue,Mockito.times(links.size())).add(pageCapture.capture());
 		assertEquals(links.size(),pageCapture.getAllValues().size());
@@ -162,7 +163,7 @@ public class WebCrawlerTest {
 		Mockito.when(fakePage.getParent()).thenReturn(parentPage);
 		Mockito.when(parser.isUrlOnDomain(Mockito.any(URI.class), Mockito.anyString())).thenReturn(false);
 		WebCrawler testClass = new WebCrawler(mockedURL,Boolean.TRUE, fetchTime,Boolean.TRUE,mockedSiteMap,fakeQueue,mockExecutorService,parser);
-		testClass.pageFetched(fakePage, links);
+		testClass.pageFetched(fakePage, links,Collections.EMPTY_SET,Collections.EMPTY_SET);
 		
 		Mockito.verify(fakeQueue,Mockito.times(0)).add(pageCapture.capture());
 		

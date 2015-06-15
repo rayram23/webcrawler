@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="6" failures="0" name="com.rayram23.webcrawler.WebCrawlerTest" time="0.042" errors="0" skipped="0">
+<testsuite tests="8" failures="0" name="com.rayram23.webcrawler.WebCrawlerTest" time="0.05" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_45.jdk/Contents/Home/jre/lib"/>
@@ -64,10 +64,12 @@
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="com.rayram23.webcrawler.WebCrawlerTest" name="testIllegalArgumentFetchTimeLessThanLimit" time="0.029"/>
-  <testcase classname="com.rayram23.webcrawler.WebCrawlerTest" name="testPageFetchedPageAddedToSiteMap" time="0.009"/>
-  <testcase classname="com.rayram23.webcrawler.WebCrawlerTest" name="testIllegalArgumentFetchTimeEqualToLimit" time="0.001"/>
-  <testcase classname="com.rayram23.webcrawler.WebCrawlerTest" name="testIllegalArgumentFetchTimeGreaterThanLimit" time="0"/>
-  <testcase classname="com.rayram23.webcrawler.WebCrawlerTest" name="testPageFetchedAllLinksAddedToQueue" time="0.002"/>
+  <testcase classname="com.rayram23.webcrawler.WebCrawlerTest" name="testConvertToURIBadURI" time="0.031"/>
+  <testcase classname="com.rayram23.webcrawler.WebCrawlerTest" name="testPageFetchedLinkAlreadySeen" time="0.011"/>
+  <testcase classname="com.rayram23.webcrawler.WebCrawlerTest" name="testConstrucutorNullSiteMap" time="0"/>
+  <testcase classname="com.rayram23.webcrawler.WebCrawlerTest" name="testConvertToURIGoodURI" time="0.001"/>
+  <testcase classname="com.rayram23.webcrawler.WebCrawlerTest" name="testPageFetchedPageAddedToSiteMap" time="0.002"/>
+  <testcase classname="com.rayram23.webcrawler.WebCrawlerTest" name="testPageFetchedAllLinksAddedToQueue" time="0.003"/>
   <testcase classname="com.rayram23.webcrawler.WebCrawlerTest" name="testPageFetchedNoLinksAddedToQueue" time="0.001"/>
+  <testcase classname="com.rayram23.webcrawler.WebCrawlerTest" name="testPageFetchedLinksAlreadyExist" time="0.001"/>
 </testsuite>

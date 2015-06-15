@@ -4,9 +4,11 @@ import java.net.URI;
 
 public class UriParser {
 
-	public boolean isUrlOnDomain( URI check,String parentDomain){
+	public boolean isUrlOnDomain( URI check,URI parentDomain){
 		String host = this.extractDomain(check);
-		return parentDomain.toLowerCase().equals(host.toLowerCase());
+		String parentHost = this.extractDomain(parentDomain);
+		
+		return parentHost.toLowerCase().equals(host.toLowerCase());
 	}
 	public String extractDomain(URI uri){
 		  String domain = uri.getHost().toLowerCase();

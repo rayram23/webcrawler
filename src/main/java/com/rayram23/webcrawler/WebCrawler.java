@@ -1,14 +1,20 @@
 package com.rayram23.webcrawler;
 
+import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.rayram23.webcrawler.domain.Page;
 import com.rayram23.webcrawler.fetch.PageFetchListener;
+import com.rayram23.webcrawler.fetch.PageFetcherPool;
 import com.rayram23.webcrawler.parser.UriParser;
 import com.rayram23.webcrawler.sitemap.SiteMap;
 
@@ -16,39 +22,66 @@ import com.rayram23.webcrawler.sitemap.SiteMap;
 
 public class WebCrawler implements PageFetchListener{
 
-public static final int MIN_FETCH_TIME = 1000;
 	
 	private SiteMap siteMap;
-	private Boolean allowSubdomains;
-	private URI url;
-	private Boolean obeyRobots;
+	private URI uri;
 	private Logger logger = Logger.getLogger("WebCrawler");
-	private Queue<Page> pageQueue;
-	private ExecutorService executor;
 	private UriParser uriParser;
+	private PageFetcherPool pool;
+	private Set<String> seen;
 	
 
-	public WebCrawler(URI uri, Boolean allowSubdomains, int fetchTime, Boolean obeyRobots, SiteMap siteMap, Queue<Page> queue, ExecutorService executor,UriParser uriParser){
-		if(fetchTime < WebCrawler.MIN_FETCH_TIME){
-			throw new IllegalArgumentException("fetchTime must be >= WebCrawler.MIN_FETCH_TIME");
-		}
+	public WebCrawler(URI uri,  SiteMap siteMap, UriParser uriParser, PageFetcherPool pool){
 		if(siteMap == null){
 			throw new IllegalArgumentException("Please pass a valid SiteMap object.");
 		}
-		this.pageQueue = queue;
-		this.executor = executor;
 		this.siteMap = siteMap;
 		this.uriParser = uriParser;
+		this.pool = pool;
+		this.uri = uri;
+		this.seen = new HashSet<String>();
+	}
+	public void start() throws MalformedURLException{
+		this.pool.fetchPage(new Page(this.uri.toURL().toString()));
 	}
 	public void pageFetched(Page page, Set<String> links, Set<String> images, Set<String> statics) {	
 		//add the page to the graph
-		this.siteMap.addPage(page.getParent(), page);
+		logger.log(Level.INFO, "Page crawled: "+page.getUrl());
+		
+		this.siteMap.addPage(page);
 		//for each link
 		for(String link : links){
-			//if the page is on the original domain add it to the queue
-			if(this.uriParser.isUrlOnDomain(this.url, link)){
-				this.pageQueue.add(new Page(page,link));
+			//if the link is "seen" then some other page had a link to it 
+			//but i may have not been explotred yet we dont need to add
+			//this link to the queue sine it may already be there...
+			boolean seen = this.seen.contains(link);
+			if(seen){
+				continue;
 			}
+			URI other = this.convertToURI(link);
+			if(other == null){
+				//logger.log(Level.WARNING, "Link is not a URI: "+link);
+				continue;
+			}
+			boolean onDomain = this.uriParser.isUrlOnDomain(this.uri, other);
+			if(!onDomain){
+				//logger.log(Level.INFO, "Link is not on domain: "+link);
+				continue;
+			}
+			
+			this.seen.add(link);
+			this.pool.fetchPage(new Page(link));
+			
 		}
+	}
+	protected URI convertToURI(String link){
+		URI out = null;
+		try{
+			out = new URI(link);
+		}
+		catch(URISyntaxException e){
+			
+		}
+		return out;
 	}
 }

@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -42,18 +43,21 @@ public class WebCrawler implements PageFetchListener{
 		this.seen = new HashSet<String>();
 	}
 	public void start() throws MalformedURLException{
-		this.pool.fetchPage(new Page(this.uri.toURL().toString()));
+		String startLink = this.uri.toURL().toString();
+		this.seen.add(startLink);
+		this.pool.fetchPage(new Page(startLink));
 	}
 	public void pageFetched(Page page, Set<String> links, Set<String> images, Set<String> statics) {	
 		//add the page to the graph
 		logger.log(Level.INFO, "Page crawled: "+page.getUrl());
 		
 		this.siteMap.addPage(page);
-		//for each link
 		for(String link : links){
 			//if the link is "seen" then some other page had a link to it 
 			//but i may have not been explotred yet we dont need to add
 			//this link to the queue sine it may already be there...
+			//possible race condition (if one thead is adding the link while to other is checking
+			//that the link exists in the seen set)
 			boolean seen = this.seen.contains(link);
 			if(seen){
 				continue;
@@ -68,10 +72,8 @@ public class WebCrawler implements PageFetchListener{
 				//logger.log(Level.INFO, "Link is not on domain: "+link);
 				continue;
 			}
-			
 			this.seen.add(link);
 			this.pool.fetchPage(new Page(link));
-			
 		}
 	}
 	protected URI convertToURI(String link){

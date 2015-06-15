@@ -53,9 +53,9 @@ public class WebCrawler implements PageFetchListener{
 		
 		this.siteMap.addPage(page);
 		for(String link : links){
-			//if the link is "seen" then some other page had a link to it 
-			//but i may have not been explotred yet we dont need to add
-			//this link to the queue sine it may already be there...
+			//if the link is "seen" then some other page had a link to it. 
+			//but it may have not been explotred yet we dont need to add
+			//this link to the queue since it may already be there...
 			//possible race condition (if one thead is adding the link while to other is checking
 			//that the link exists in the seen set)
 			boolean seen = this.seen.contains(link);

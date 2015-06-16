@@ -13,11 +13,11 @@ yum install maven
 
 
 #How to run
-From the project directory run the following maven command
+From the project directory run the following maven command:
 mvn exec:java -Dexec.mainClass="com.rayram23.webcrawler.App" -Dexec.args="http://digitalocean.com 1 10"
 
 #How to run tests
-From the project directory run the following command
+From the project directory run the following command:
 mvn cobertura:cobertura
 
 #View Code Coverage

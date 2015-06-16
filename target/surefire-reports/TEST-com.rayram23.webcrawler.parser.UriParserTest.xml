@@ -67,7 +67,7 @@
   <testcase time="0" classname="com.rayram23.webcrawler.parser.UriParserTest" name="testUrl"/>
   <testcase time="0" classname="com.rayram23.webcrawler.parser.UriParserTest" name="testIsUrlOnDomainFalse"/>
   <testcase time="0" classname="com.rayram23.webcrawler.parser.UriParserTest" name="testExtractDomainWithSubDomain"/>
-  <testcase time="0" classname="com.rayram23.webcrawler.parser.UriParserTest" name="testExtractDomainSimple"/>
+  <testcase time="0.001" classname="com.rayram23.webcrawler.parser.UriParserTest" name="testExtractDomainSimple"/>
   <testcase time="0" classname="com.rayram23.webcrawler.parser.UriParserTest" name="testExtractDomainWithSubPage"/>
-  <testcase time="0.001" classname="com.rayram23.webcrawler.parser.UriParserTest" name="testIsUrlOnDomainTrue"/>
+  <testcase time="0" classname="com.rayram23.webcrawler.parser.UriParserTest" name="testIsUrlOnDomainTrue"/>
 </testsuite>

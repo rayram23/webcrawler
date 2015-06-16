@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="0.046" errors="0" skipped="0" tests="3" name="com.rayram23.webcrawler.fetch.PageFetchPoolTest">
+<testsuite failures="0" time="0.05" errors="0" skipped="0" tests="3" name="com.rayram23.webcrawler.fetch.PageFetchPoolTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.7.0_79.jdk/Contents/Home/jre/lib"/>
@@ -64,7 +64,7 @@
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase time="0.045" classname="com.rayram23.webcrawler.fetch.PageFetchPoolTest" name="testConstructorDelayGreaterTahnAllowedValues"/>
+  <testcase time="0.05" classname="com.rayram23.webcrawler.fetch.PageFetchPoolTest" name="testConstructorDelayGreaterTahnAllowedValues"/>
   <testcase time="0" classname="com.rayram23.webcrawler.fetch.PageFetchPoolTest" name="testConstructorDelayEqualToAllowedValues"/>
-  <testcase time="0.001" classname="com.rayram23.webcrawler.fetch.PageFetchPoolTest" name="testConstructorDelayLessThanAllowedValue"/>
+  <testcase time="0" classname="com.rayram23.webcrawler.fetch.PageFetchPoolTest" name="testConstructorDelayLessThanAllowedValue"/>
 </testsuite>

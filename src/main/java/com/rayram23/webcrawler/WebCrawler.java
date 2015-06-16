@@ -50,7 +50,9 @@ public class WebCrawler implements PageFetchListener{
 	public void pageFetched(Page page, Set<String> links, Set<String> images, Set<String> statics) {	
 		//add the page to the graph
 		logger.log(Level.INFO, "Page crawled: "+page.getUrl());
-		
+		page.addImages(images);
+		page.addLinks(links);
+		page.addStatics(statics);	
 		this.siteMap.addPage(page);
 		for(String link : links){
 			//if the link is "seen" then some other page had a link to it. 

@@ -1,0 +1,4 @@
+com/rayram23/webcrawler/fetch/PageFetcherTest.class
+com/rayram23/webcrawler/WebCrawlerTest.class
+com/rayram23/webcrawler/parser/UriParserTest.class
+com/rayram23/webcrawler/fetch/PageFetchPoolTest.class

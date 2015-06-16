@@ -1,8 +1,8 @@
-/Users/rayramjiawan/Documents/workspace/webcrawler/src/main/java/com/rayram23/webcrawler/parser/UriParser.java
 /Users/rayramjiawan/Documents/workspace/webcrawler/src/main/java/com/rayram23/webcrawler/fetch/PageFetcher.java
-/Users/rayramjiawan/Documents/workspace/webcrawler/src/main/java/com/rayram23/webcrawler/App.java
-/Users/rayramjiawan/Documents/workspace/webcrawler/src/main/java/com/rayram23/webcrawler/WebCrawler.java
-/Users/rayramjiawan/Documents/workspace/webcrawler/src/main/java/com/rayram23/webcrawler/fetch/PageFetcherPool.java
+/Users/rayramjiawan/Documents/workspace/webcrawler/src/main/java/com/rayram23/webcrawler/parser/UriParser.java
 /Users/rayramjiawan/Documents/workspace/webcrawler/src/main/java/com/rayram23/webcrawler/sitemap/SiteMap.java
+/Users/rayramjiawan/Documents/workspace/webcrawler/src/main/java/com/rayram23/webcrawler/App.java
 /Users/rayramjiawan/Documents/workspace/webcrawler/src/main/java/com/rayram23/webcrawler/fetch/PageFetchListener.java
+/Users/rayramjiawan/Documents/workspace/webcrawler/src/main/java/com/rayram23/webcrawler/fetch/PageFetcherPool.java
+/Users/rayramjiawan/Documents/workspace/webcrawler/src/main/java/com/rayram23/webcrawler/WebCrawler.java
 /Users/rayramjiawan/Documents/workspace/webcrawler/src/main/java/com/rayram23/webcrawler/domain/Page.java

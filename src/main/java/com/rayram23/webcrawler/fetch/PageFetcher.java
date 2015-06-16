@@ -45,7 +45,7 @@ public class PageFetcher implements Runnable {
 	     Elements statics = doc.select("link[href]");
 		
 	     Set<String> fqdnLinks = this.getAllAbsoluteUrlForAttribute(links, "href");
-	     Set<String> fqdnImages = this.getAllAbsoluteUrlForAttribute(images, "href");
+	     Set<String> fqdnImages = this.getAllAbsoluteUrlForAttribute(images, "src");
 	     Set<String> fqdnStatics = this.getAllAbsoluteUrlForAttribute(statics, "href");
 	     
 	     for(PageFetchListener listener : this.listeners){
